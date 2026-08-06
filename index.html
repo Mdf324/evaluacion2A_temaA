@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Evaluación · Educación Tecnológica · Tema A</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #eef2f7;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 1rem;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .exam {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            padding: 2rem 2.2rem 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .header {
+            border-bottom: 3px solid #1e2b3c;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0b1a2a;
+        }
+
+        .header .sub {
+            font-size: 0.95rem;
+            color: #3e5a76;
+            background: #eef2f7;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-weight: 500;
+        }
+
+        .theme-indicator {
+            background: #1e2b3c;
+            color: white;
+            font-weight: 700;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-size: 1rem;
+        }
+
+        .user-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 2rem;
+            background: #f8faff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 16px;
+            border: 1px solid #e3eaf2;
+            margin-bottom: 1.5rem;
+            align-items: center;
+        }
+
+        .user-fields label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            color: #1f3348;
+            font-size: 0.95rem;
+        }
+
+        .user-fields input {
+            border: 1px solid #ccd7e6;
+            border-radius: 8px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.95rem;
+            background: white;
+            width: 200px;
+        }
+
+        .user-fields input:focus {
+            outline: 2px solid #1e2b3c;
+            border-color: transparent;
+        }
+
+        .instructions {
+            background: #f8faff;
+            padding: 0.7rem 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            color: #1f3348;
+            border: 1px solid #e3eaf2;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .instructions .badge {
+            background: #1e2b3c;
+            color: white;
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.9rem;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0b1a2a;
+            margin: 1.8rem 0 1rem;
+            padding: 0.3rem 0.8rem;
+            background: #eef2f7;
+            border-radius: 8px;
+            border-left: 4px solid #1e2b3c;
+        }
+
+        .question {
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid #e9eef4;
+        }
+
+        .question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .q-head {
+            display: flex;
+            gap: 0.6rem;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #0b1a2a;
+            margin-bottom: 0.4rem;
+        }
+
+        .q-head .num {
+            background: #dce5ef;
+            color: #1f3348;
+            border-radius: 40px;
+            padding: 0 0.9rem;
+            font-size: 0.8rem;
+            line-height: 1.8rem;
+            height: 1.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .q-text {
+            font-weight: 500;
+            padding-top: 0.1rem;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.3rem 1.5rem;
+            margin-top: 0.4rem;
+            padding-left: 2.5rem;
+        }
+
+        .options label {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            font-size: 0.92rem;
+            color: #1d2f44;
+            padding: 0.2rem 0.3rem;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .options label:hover {
+            background: #f4f8fe;
+        }
+
+        .options input[type="radio"] {
+            width: 1rem;
+            height: 1rem;
+            flex-shrink: 0;
+            accent-color: #1e2b3c;
+            margin-top: 0.1rem;
+            cursor: pointer;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0 1.5rem;
+            justify-content: center;
+        }
+
+        .actions button {
+            background: #1e2b3c;
+            color: white;
+            border: none;
+            padding: 0.7rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .actions button:hover {
+            background: #0b1a2a;
+        }
+
+        .actions button.secondary {
+            background: #dce5ef;
+            color: #1f3348;
+        }
+
+        .actions button.secondary:hover {
+            background: #c8d4e2;
+        }
+
+        .result-box {
+            background: #f4f8fe;
+            border: 1px solid #dce5ef;
+            border-radius: 16px;
+            padding: 1.2rem 1.5rem;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .result-box.visible {
+            display: block;
+        }
+
+        .result-box h3 {
+            font-size: 1.1rem;
+            color: #0b1a2a;
+            margin-bottom: 0.6rem;
+        }
+
+        .result-box textarea {
+            width: 100%;
+            min-height: 150px;
+            border: 1px solid #ccd7e6;
+            border-radius: 12px;
+            padding: 0.8rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            resize: vertical;
+            background: white;
+        }
+
+        .result-box .copy-btn {
+            background: #1e2b3c;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .result-box .copy-btn:hover {
+            background: #0b1a2a;
+        }
+
+        .save-instructions {
+            background: #fff8e6;
+            border: 1px solid #f0dca0;
+            border-radius: 12px;
+            padding: 0.8rem 1.2rem;
+            margin: 1rem 0 0.5rem;
+            font-size: 0.9rem;
+            color: #5c4a1a;
+        }
+
+        .save-instructions strong {
+            color: #1e2b3c;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: #647b96;
+            border-top: 1px solid #e3eaf2;
+            padding-top: 1.2rem;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            .exam {
+                padding: 1.5rem 1.2rem;
+            }
+            .options {
+                grid-template-columns: 1fr;
+                gap: 0.2rem;
+                padding-left: 1.2rem;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            .user-fields {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .user-fields input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="exam" id="examContainer">
+
+        <!-- ===== ENCABEZADO ===== -->
+        <div class="header">
+            <div>
+                <h1>📋 Evaluación · Educación Tecnológica</h1>
+                <div class="sub">2º Año · 2026</div>
+            </div>
+            <div class="theme-indicator">Tema A</div>
+        </div>
+
+        <!-- ===== DATOS DEL ESTUDIANTE ===== -->
+        <div class="user-fields">
+            <label>
+                Apellido y Nombre:
+                <input type="text" id="studentName" placeholder="Escribe tu nombre completo" />
+            </label>
+            <label>
+                Curso:
+                <input type="text" id="studentCourse" placeholder="Ej: 2º A" />
+            </label>
+            <label>
+                Profesor:
+                <input type="text" id="studentTeacher" placeholder="Nombre del profesor" />
+            </label>
+        </div>
+
+        <div class="instructions">
+            <span>📌 <strong>20 preguntas</strong> · Seleccioná la opción correcta</span>
+            <span class="badge">Tema A</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 1: CULTURA TECNOLÓGICA (págs. 4-5)                   -->
+        <!-- ============================================================ -->
+        <div class="section-title">📖 Cultura Tecnológica</div>
+
+        <!-- Pregunta 1 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">1</span>
+                <span class="q-text">Según el texto, ¿qué abarca la cultura?</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="A" /> Solo las manifestaciones artísticas</label>
+                <label><input type="radio" name="q1" value="B" /> Solo la tecnología</label>
+                <label><input type="radio" name="q1" value="C" /> Modos de vida, costumbres, conocimientos y desarrollo artístico, científico y tecnológico</label>
+                <label><input type="radio" name="q1" value="D" /> Únicamente las tradiciones</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">2</span>
+                <span class="q-text">Según la Ley de Ohm, la intensidad de corriente (I) se calcula como:</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q2" value="A" /> I = V × R</label>
+                <label><input type="radio" name="q2" value="B" /> I = V / R</label>
+                <label><input type="radio" name="q2" value="C" /> I = R / V</label>
+                <label><input type="radio" name="q2" value="D" /> I = V + R</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">3</span>
+                <span class="q-text">¿Por qué es importante que los ciudadanos de una nación cuenten con cultura tecnológica?</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q3" value="A" /> Para que todos puedan ser ingenieros</label>
+                <label><input type="radio" name="q3" value="B" /> Para estar mejor preparados para incorporar y producir innovaciones tecnológicas</label>
+                <label><input type="radio" name="q3" value="C" /> Para que puedan reparar sus propias computadoras</label>
+                <label><input type="radio" name="q3" value="D" /> Para que la tecnología no sea necesaria</label>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 2: CIENCIA Y TECNOLOGÍA (págs. 6-9)                  -->
+        <!-- ============================================================ -->
+        <div class="section-title">🔬 Ciencia y Tecnología</div>
+
+        <!-- Pregunta 4 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">4</span>
+                <span class="q-text">¿Cuál es el objetivo de la CIENCIA según el texto?</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q4" value="A" /> Resolver problemas prácticos de la vida diaria</label>
+                <label><input type="radio" name="q4" value="B" /> Producir bienes y servicios</label>
+                <label><input type="radio" name="q4" value="C" /> Conocer y comprender el mundo que nos rodea</label>
+                <label><input type="radio" name="q4" value="D" /> Construir máquinas y herramientas</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 5 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">5</span>
+                <span class="q-text">¿Cuál es el objetivo de la TECNOLOGÍA según el texto?</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q5" value="A" /> Descubrir leyes de la naturaleza</label>
+                <label><input type="radio" name="q5" value="B" /> Resolver problemas creados por necesidades y deseos del hombre</label>
+                <label><input type="radio" name="q5" value="C" /> Investigar en laboratorios</label>
+                <label><input type="radio" name="q5" value="D" /> Formular teorías científicas</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 6 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">6</span>
+                <span class="q-text">¿Qué métodos utiliza la tecnología para resolver problemas?</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q6" value="A" /> El método científico y la experimentación</label>
+                <label><input type="radio" name="q6" value="B" /> El análisis de producto y el proyecto tecnológico</label>
+                <label><input type="radio" name="q6" value="C" /> La observación y la clasificación</label>
+                <label><input type="radio" name="q6" value="D" /> La deducción y la inducción</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 7 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">7</span>
+                <span class="q-text">Según el texto, ¿quién nació primero, la ciencia o la tecnología?</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q7" value="A" /> La ciencia, porque es más antigua</label>
+                <label><input type="radio" name="q7" value="B" /> La tecnología, porque nace con la necesidad del hombre de protegerse</label>
+                <label><input type="radio" name="q7" value="C" /> Ambas nacieron al mismo tiempo</label>
+                <label><input type="radio" name="q7" value="D" /> No se sabe con certeza</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 8 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">8</span>
+                <span class="q-text">¿Con quién nace la ciencia basada en el método experimental?</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q8" value="A" /> Con Arquímedes</label>
+                <label><input type="radio" name="q8" value="B" /> Con Galileo Galilei</label>
+                <label><input type="radio" name="q8" value="C" /> Con los griegos</label>
+                <label><input type="radio" name="q8" value="D" /> Con Newton</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 9 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">9</span>
+                <span class="q-text">Según el texto, la ciencia y la tecnología actualmente:</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q9" value="A" /> Están completamente separadas</label>
+                <label><input type="radio" name="q9" value="B" /> Se integran y relacionan para dar respuesta a los problemas</label>
+                <label><input type="radio" name="q9" value="C" /> La ciencia es más importante que la tecnología</label>
+                <label><input type="radio" name="q9" value="D" /> La tecnología no necesita de la ciencia</label>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 3: ÁREAS DE DEMANDA Y SISTEMAS TECNOLÓGICOS (págs. 12-14) -->
+        <!-- ============================================================ -->
+        <div class="section-title">🏭 Áreas de Demanda y Sistemas Tecnológicos</div>
+
+        <!-- Pregunta 10 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">10</span>
+                <span class="q-text">Las áreas de demanda a las que la tecnología da respuesta están asociadas a:</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q10" value="A" /> Solo a las necesidades básicas</label>
+                <label><input type="radio" name="q10" value="B" /> Las necesidades y deseos de la sociedad</label>
+                <label><input type="radio" name="q10" value="C" /> Únicamente a los deseos de las personas</label>
+                <label><input type="radio" name="q10" value="D" /> Las exigencias del gobierno</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 11 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">11</span>
+                <span class="q-text">¿Qué son los sistemas tecnológicos?</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q11" value="A" /> Conjuntos de máquinas solamente</label>
+                <label><input type="radio" name="q11" value="B" /> Productos tecnológicos que responden a necesidades y deseos sociales</label>
+                <label><input type="radio" name="q11" value="C" /> Programas de computadora</label>
+                <label><input type="radio" name="q11" value="D" /> Únicamente servicios de transporte</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 12 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">12</span>
+                <span class="q-text">¿Qué productos tecnológicos se relacionan con el área de ALIMENTACIÓN según el cuadro?</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q12" value="A" /> Vehículos y redes viales</label>
+                <label><input type="radio" name="q12" value="B" /> Cultivos, procesamiento de alimentos, distribución, supermercados</label>
+                <label><input type="radio" name="q12" value="C" /> Hospitales y clínicas</label>
+                <label><input type="radio" name="q12" value="D" /> Parques y plazas</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 13 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">13</span>
+                <span class="q-text">En la actualidad, el hombre busca satisfacer sus deseos enfocados a lograr:</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q13" value="A" /> Una mejor calidad de vida</label>
+                <label><input type="radio" name="q13" value="B" /> Solo comida y vivienda</label>
+                <label><input type="radio" name="q13" value="C" /> Acumular riquezas</label>
+                <label><input type="radio" name="q13" value="D" /> Vivir sin tecnología</label>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 4: ENERGÍA (págs. 15-17)                             -->
+        <!-- ============================================================ -->
+        <div class="section-title">⚡ Energía</div>
+
+        <!-- Pregunta 14 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">14</span>
+                <span class="q-text">¿Qué es la energía según el texto?</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q14" value="A" /> Un tipo de combustible</label>
+                <label><input type="radio" name="q14" value="B" /> La capacidad de generar trabajo, acción o movimiento</label>
+                <label><input type="radio" name="q14" value="C" /> Un objeto tecnológico</label>
+                <label><input type="radio" name="q14" value="D" /> Un servicio público</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 15 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">15</span>
+                <span class="q-text">¿Qué son las energías renovables?</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q15" value="A" /> Aquellas que se agotan rápidamente</label>
+                <label><input type="radio" name="q15" value="B" /> Las que utilizan recursos naturales capaces de renovarse ilimitadamente</label>
+                <label><input type="radio" name="q15" value="C" /> Las que provienen del petróleo</label>
+                <label><input type="radio" name="q15" value="D" /> Las que no generan ningún impacto</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 16 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">16</span>
+                <span class="q-text">¿Qué son las energías no renovables?</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q16" value="A" /> Aquellas cuyas reservas naturales son finitas</label>
+                <label><input type="radio" name="q16" value="B" /> Las que provienen del sol y el viento</label>
+                <label><input type="radio" name="q16" value="C" /> Las que se regeneran en poco tiempo</label>
+                <label><input type="radio" name="q16" value="D" /> Las que no contaminan el ambiente</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 17 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">17</span>
+                <span class="q-text">¿Qué son las fuentes de energía primaria?</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q17" value="A" /> Recursos que se encuentran en la naturaleza y no han sufrido transformación</label>
+                <label><input type="radio" name="q17" value="B" /> Los productos transformados como la electricidad</label>
+                <label><input type="radio" name="q17" value="C" /> Los combustibles ya procesados</label>
+                <label><input type="radio" name="q17" value="D" /> Solo el gas y la nafta</label>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 5: CIRCUITOS ELÉCTRICOS (págs. 19-20)               -->
+        <!-- ============================================================ -->
+        <div class="section-title">🔌 Circuitos Eléctricos</div>
+
+        <!-- Pregunta 18 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">18</span>
+                <span class="q-text">¿Qué es un circuito eléctrico?</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q18" value="A" /> Un tipo de batería</label>
+                <label><input type="radio" name="q18" value="B" /> El recorrido preestablecido por el que se desplazan las cargas eléctricas</label>
+                <label><input type="radio" name="q18" value="C" /> Un interruptor</label>
+                <label><input type="radio" name="q18" value="D" /> Un cable eléctrico</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 19 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">19</span>
+                <span class="q-text">¿Qué ocurre en un circuito en serie si un elemento se descompone?</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q19" value="A" /> Los demás elementos siguen funcionando</label>
+                <label><input type="radio" name="q19" value="B" /> Los demás elementos quedan fuera de servicio</label>
+                <label><input type="radio" name="q19" value="C" /> El circuito se vuelve más potente</label>
+                <label><input type="radio" name="q19" value="D" /> No ocurre nada</label>
+            </div>
+        </div>
+
+        <!-- Pregunta 20 -->
+        <div class="question">
+            <div class="q-head">
+                <span class="num">20</span>
+                <span class="q-text">¿Qué ocurre en un circuito en paralelo si un elemento se descompone?</span>
+            </div>
+            <div class="options">
+                <label><input type="radio" name="q20" value="A" /> Todos los elementos se apagan</label>
+                <label><input type="radio" name="q20" value="B" /> Los demás elementos siguen funcionando</label>
+                <label><input type="radio" name="q20" value="C" /> El circuito se apaga por completo</label>
+                <label><input type="radio" name="q20" value="D" /> El elemento descompuesto se repara solo</label>
+            </div>
+        </div>
+
+        <!-- ===== BOTONES ===== -->
+        <div class="actions">
+            <button id="showResultsBtn">📊 Ver respuestas seleccionadas</button>
+            <button id="clearBtn" class="secondary">🗑️ Limpiar todo</button>
+        </div>
+
+        <!-- ===== CUADRO DE RESULTADOS ===== -->
+        <div id="resultBox" class="result-box">
+            <h3>📋 Resumen de respuestas</h3>
+            <p style="font-size:0.9rem; color:#3e5a76; margin-bottom:0.5rem;">
+                Revisá tus respuestas y luego copiá el texto.
+            </p>
+            <textarea id="resultText" readonly></textarea>
+            <button id="copyBtn" class="copy-btn">📄 Copiar al portapapeles</button>
+
+            <div class="save-instructions">
+                <strong>💾 Instrucciones para guardar en tu escritorio:</strong><br />
+                1. Después de copiar, abre el <strong>Bloc de notas</strong> (Notepad).<br />
+                2. Presiona <strong>Ctrl + V</strong> para pegar el texto.<br />
+                3. Ve a <strong>Archivo &gt; Guardar como...</strong><br />
+                4. Elige <strong>Escritorio</strong> como ubicación.<br />
+                5. Ponle un nombre, por ejemplo: <strong>MI_EVALUACION_ET.txt</strong> y haz clic en Guardar.
+            </div>
+        </div>
+
+        <div class="footer">
+            Educación Tecnológica · 2º Año · 2026 — Tema A
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        //  OBTENER RESPUESTAS
+        // ============================================================
+        function getSelectedAnswers() {
+            const questions = document.querySelectorAll('.question');
+            const answers = {};
+            let allAnswered = true;
+
+            questions.forEach((qDiv, index) => {
+                const numSpan = qDiv.querySelector('.num');
+                const qNum = numSpan ? numSpan.textContent : (index + 1);
+                const radios = qDiv.querySelectorAll('input[type="radio"]');
+                let selected = null;
+                radios.forEach((radio) => {
+                    if (radio.checked) {
+                        selected = radio.value;
+                    }
+                });
+                if (selected === null) {
+                    allAnswered = false;
+                    answers[qNum] = '—';
+                } else {
+                    answers[qNum] = selected;
+                }
+            });
+
+            return { answers, allAnswered };
+        }
+
+        // ============================================================
+        //  MOSTRAR RESULTADOS
+        // ============================================================
+        function showResults() {
+            const name = document.getElementById('studentName').value.trim() || '(sin nombre)';
+            const course = document.getElementById('studentCourse').value.trim() || '(sin curso)';
+            const teacher = document.getElementById('studentTeacher').value.trim() || '(sin profesor)';
+            const { answers, allAnswered } = getSelectedAnswers();
+
+            let output = `========================================\n`;
+            output += `  EVALUACIÓN EDUCACIÓN TECNOLÓGICA\n`;
+            output += `  2º Año - 2026\n`;
+            output += `  Tema: A\n`;
+            output += `  Nombre: ${name}\n`;
+            output += `  Curso: ${course}\n`;
+            output += `  Profesor: ${teacher}\n`;
+            output += `  Fecha: ${new Date().toLocaleDateString()}\n`;
+            output += `========================================\n\n`;
+            output += `RESPUESTAS SELECCIONADAS:\n\n`;
+
+            const sortedKeys = Object.keys(answers).sort((a, b) => parseInt(a) - parseInt(b));
+            sortedKeys.forEach((qNum) => {
+                const val = answers[qNum];
+                output += `Pregunta ${qNum}: ${val}\n`;
+            });
+
+            if (!allAnswered) {
+                output += `\n⚠️ ATENCIÓN: Hay preguntas sin responder (marcadas con "—").\n`;
+            }
+
+            output += `\n----------------------------------------\n`;
+            output += `  Recuerda guardar este archivo como .txt\n`;
+            output += `  en tu escritorio y entregarlo al docente.\n`;
+            output += `----------------------------------------\n`;
+
+            document.getElementById('resultText').value = output;
+            document.getElementById('resultBox').classList.add('visible');
+            document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // ============================================================
+        //  LIMPIAR TODO
+        // ============================================================
+        function clearAll() {
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach((radio) => {
+                radio.checked = false;
+            });
+            document.getElementById('resultBox').classList.remove('visible');
+        }
+
+        // ============================================================
+        //  COPIAR AL PORTAPAPELES
+        // ============================================================
+        function copyResults() {
+            const text = document.getElementById('resultText').value;
+            if (!text) {
+                alert('Primero haz clic en "Ver respuestas seleccionadas".');
+                return;
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('✅ Respuestas copiadas al portapapeles.\n\nAhora abre el Bloc de notas, pega (Ctrl+V) y guarda el archivo en tu escritorio.');
+                }).catch(() => {
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                alert('✅ Respuestas copiadas al portapapeles.\n\nAhora abre el Bloc de notas, pega (Ctrl+V) y guarda el archivo en tu escritorio.');
+            } catch (err) {
+                alert('❌ No se pudo copiar. Selecciona el texto manualmente, copia (Ctrl+C) y pégalo en el Bloc de notas.');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // ============================================================
+        //  EVENTOS
+        // ============================================================
+        document.getElementById('showResultsBtn').addEventListener('click', showResults);
+        document.getElementById('clearBtn').addEventListener('click', clearAll);
+        document.getElementById('copyBtn').addEventListener('click', copyResults);
+    </script>
+
+</body>
+</html>
